@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sinh nhật Nguyễn Tất Hải</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fdf6f0; font-family: 'Lora', serif; min-height: 100vh; }
+
+  #password-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    background: linear-gradient(160deg, #fdf6f0 0%, #f9ede8 40%, #fef3f8 100%);
+  }
+
+  .pw-flowers { font-size: 1.4rem; letter-spacing: 0.3em; margin-bottom: 1.5rem; }
+
+  .pw-title {
+    font-family: 'Lora', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #3d2b1f;
+    margin-bottom: 0.5rem;
+  }
+
+  .pw-hint {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #b08070;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  .pw-input {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.3em;
+    text-align: center;
+    color: #3d2b1f;
+    background: #fff8f5;
+    border: 1px solid #e8c5b5;
+    border-radius: 12px;
+    padding: 0.7rem 1.2rem;
+    width: 220px;
+    outline: none;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .pw-input:focus { border-color: #c9896a; }
+  .pw-input.error { border-color: #e07060; animation: shake 0.3s; }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+  .pw-error {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #c0604a;
+    margin-bottom: 1rem;
+    min-height: 18px;
+  }
+
+  .btn-enter {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background: #c9896a;
+    border: none;
+    border-radius: 40px;
+    padding: 0.7rem 2.2rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-enter:hover { background: #b5745a; transform: translateY(-1px); }
+
+  #cover {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+    background: linear-gradient(160deg, #fdf6f0 0%, #f9ede8 40%, #fef3f8 100%);
+  }
+
+  .cover-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: #c9896a;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .flowers { font-size: 1.4rem; margin-bottom: 1rem; letter-spacing: 0.3em; }
+
+  .cover-title {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #3d2b1f;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+    max-width: 420px;
+  }
+
+  .cover-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: #a07060;
+    margin-bottom: 2.5rem;
+  }
+
+  .cover-dedication {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #b08070;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .cover-dedication span {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    color: #7a4f3a;
+  }
+
+  .btn-read {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background: #c9896a;
+    border: none;
+    border-radius: 40px;
+    padding: 0.75rem 2.4rem;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-read:hover { background: #b5745a; transform: translateY(-1px); }
+
+  #story {
+    display: none;
+    padding: 3rem 1.5rem 4rem;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .story-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #f0ddd6;
+  }
+
+  .story-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #c9896a;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .story-title {
+    font-family: 'Lora', serif;
+    font-size: 1.45rem;
+    font-weight: 500;
+    color: #3d2b1f;
+    line-height: 1.45;
+  }
+
+  .story-body {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: #4a3728;
+    line-height: 2;
+  }
+
+  .story-body p { margin-bottom: 1.1rem; }
+  .story-body p.short { margin-bottom: 0.25rem; }
+
+  .scene-break {
+    text-align: center;
+    color: #d4a898;
+    font-size: 1.1rem;
+    margin: 1.8rem 0;
+    letter-spacing: 0.3em;
+  }
+
+  .emotion { font-style: italic; color: #8c5a44; }
+  .highlight { color: #7a4f3a; font-weight: 500; }
+
+  .story-footer {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f0ddd6;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #c0998a;
+    line-height: 2;
+  }
+
+  .btn-back {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #c9896a;
+    background: none;
+    border: 1px solid #e8c5b5;
+    border-radius: 40px;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+
+  .btn-back:hover { background: #fdf0ea; }
+
+  @media (max-width: 480px) {
+    .cover-title { font-size: 1.5rem; }
+    #story { padding: 2rem 1.25rem 3rem; }
+    .story-title { font-size: 1.2rem; }
+    .story-body { font-size: 0.95rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="password-screen">
+  <div class="pw-flowers">✿ ✾ ✿</div>
+  <div class="pw-title">Nhập mật khẩu để mở quà</div>
+  <div class="pw-hint">Chỉ dành riêng cho một người thôi nhé ✨</div>
+  <input class="pw-input" type="password" id="pw-input" placeholder="••••••••" maxlength="20"
+    onkeydown="if(event.key==='Enter') checkPassword()" />
+  <div class="pw-error" id="pw-error"></div>
+  <button class="btn-enter" onclick="checkPassword()">Mở ra →</button>
+</div>
+
+<div id="cover">
+  <div class="cover-label">Một món quà nhỏ</div>
+  <div class="flowers">✿ ✾ ✿</div>
+  <div class="cover-title">Mùa Hè Chưa Kịp Nói Lời Tạm Biệt</div>
+  <div class="cover-sub">Chương 1</div>
+  <div class="cover-dedication">
+    Gửi đến<br>
+    <span>Nguyễn Tất Hải</span>
+    tặng cậu câu chuyện này 🎂
+  </div>
+  <button class="btn-read" onclick="openStory()">Bắt đầu đọc →</button>
+</div>
+
+<div id="story">
+  <div class="story-header">
+    <div class="story-label">Chương 1</div>
+    <div class="story-title">Mùa Hè Chưa Kịp Nói Lời Tạm Biệt</div>
+  </div>
+
+  <div class="story-body">
+    <p>Dương Khải sinh ra tại Ninh Bắc.</p>
+    <p>Tuổi thơ của cậu bắt đầu như bao đứa trẻ khác, bình dị và yên ả. Những năm đầu tiểu học, cậu học cùng hai người bạn là Thiên Vũ và Trình Đường. Ba đứa trẻ ngày ngày tới trường, cùng học, cùng chơi và chẳng ai nghĩ rằng một ngày nào đó sẽ phải chia xa.</p>
+    <p>Nhưng năm tám tuổi, gia đình Dương Khải chuyển tới thành phố Bang Giác.</p>
+    <p><span class="emotion">Đó là lần đầu tiên trong đời cậu hiểu thế nào là rời xa một nơi quen thuộc.</span></p>
+    <p class="short">Ngôi trường mới lớn hơn.</p>
+    <p class="short">Lớp học mới đông hơn.</p>
+    <p>Bạn bè cũng hoàn toàn xa lạ.</p>
+    <p>Dương Khải phải học cách bắt đầu lại từ đầu.</p>
+    <p>Nhờ vẻ ngoài sáng sủa cùng tính cách hiền lành, cậu nhanh chóng được nhiều bạn nữ trong lớp quý mến. Các bạn thường rủ cậu chơi cùng, nói chuyện cùng, thậm chí còn tranh nhau ngồi cạnh cậu trong giờ học.</p>
+    <p>Dương Khải luôn đối xử với họ rất tốt. Nhưng trong lòng cậu chưa từng xuất hiện cảm giác đặc biệt nào.</p>
+
+    <div class="scene-break">· · ·</div>
+
+    <p>Rồi năm lớp bốn, cậu gặp một người. Người đó tên là <span class="highlight">Thiên Luân</span>.</p>
+    <p>Thiên Luân bằng tuổi Dương Khải nhưng học ở lớp khác. Ngày đầu tiên nhìn thấy cậu ấy trong sân trường, Dương Khải không hiểu vì sao mình lại chú ý đến một người xa lạ như vậy.</p>
+    <p>Sau nhiều ngày đắn đo, cuối cùng cậu cũng lấy hết dũng khí để tiến tới.</p>
+    <p class="short"><span class="emotion">"Chào cậu, tớ là Dương Khải."</span></p>
+    <p class="short">Thiên Luân ngẩng đầu nhìn cậu.</p>
+    <p class="short"><span class="emotion">"À, chào cậu."</span></p>
+    <p class="short"><span class="emotion">"Chúng mình làm quen được không?"</span></p>
+    <p>Thiên Luân hơi ngạc nhiên nhưng vẫn gật đầu.</p>
+    <p>Hai người đứng nói chuyện một lúc. Những câu chuyện rất đơn giản — tên tuổi, lớp học, những trò chơi yêu thích.</p>
+    <p>Đúng lúc ấy, một người bạn từ xa gọi lớn: <span class="emotion">"Thiên Luân! Ra đây chơi!"</span></p>
+    <p>Thiên Luân lập tức chạy đi. Nhưng trước khi rời khỏi đó, cậu quay đầu lại. Vẫy tay. Rồi cười với Dương Khải.</p>
+    <p><span class="emotion">Khoảnh khắc ấy, trái tim non nớt của Dương Khải bỗng đập nhanh hơn bình thường.</span></p>
+
+    <div class="scene-break">· · ·</div>
+
+    <p>Từ ngày hôm đó, điều cậu mong chờ nhất khi tới trường chính là được nhìn thấy Thiên Luân.</p>
+    <p>Mỗi giờ ra chơi, cậu thường đứng bên cửa sổ lớp học. Ánh mắt luôn tìm kiếm một bóng người duy nhất — nhìn thấy Thiên Luân chơi đùa dưới sân trường, nhìn thấy cậu ấy cười, nhìn thấy cậu ấy chạy nhảy cùng bạn bè.</p>
+    <p>Dương Khải rất muốn tới gần. Nhưng lại sợ mình trở nên phiền phức.</p>
+    <p><span class="emotion">Ngày nào cũng vậy, cậu chỉ đứng từ xa nhìn theo.</span></p>
+    <p>Có những lúc trong lòng xuất hiện một cảm giác kỳ lạ. Khi thấy Thiên Luân chơi với những người khác, cậu bỗng thấy khó chịu. Không phải ghét họ. Chỉ là cậu muốn người được ở cạnh Thiên Luân là mình.</p>
+    <p>Cuối cùng, có một ngày Dương Khải không thể tiếp tục đứng nhìn nữa. Cậu chạy xuống sân trường.</p>
+    <p class="short"><span class="emotion">"Tớ có thể chơi cùng cậu được không?"</span></p>
+    <p>Thiên Luân hơi ngẩn người rồi cười. <span class="emotion">"Được chứ."</span></p>
+
+    <div class="scene-break">· · ·</div>
+
+    <p>Hôm đó cả nhóm đang chơi mèo đuổi chuột. Sau màn oẳn tù tì, Dương Khải trở thành mèo.</p>
+    <p>Lúc trò chơi bắt đầu, mọi đứa trẻ đều chạy tán loạn. Nhưng ánh mắt Dương Khải chỉ hướng về một người — Thiên Luân.</p>
+    <p>Cậu đuổi theo. Khoảng cách ngày càng gần. Chỉ cần thêm vài bước nữa thôi là có thể chạm tới.</p>
+    <p class="short">Đúng lúc ấy.</p>
+    <p class="short"><em>Tùng! Tùng! Tùng!</em></p>
+    <p>Tiếng trống vào lớp vang lên.</p>
+    <p>Thiên Luân quay đầu lại rồi bật cười. <span class="emotion">"May quá. Suýt nữa là bị cậu bắt được rồi."</span></p>
+    <p>Dương Khải đứng sững giữa sân trường. Không hiểu vì sao trong lòng lại xuất hiện cảm giác tiếc nuối. Nhưng rồi cậu vẫn mỉm cười, cùng mọi người trở về lớp học.</p>
+
+    <div class="scene-break">· · ·</div>
+
+    <p>Những ngày tháng sau đó trôi qua thật nhanh. Dương Khải thường xuyên xuống sân chơi cùng Thiên Luân, thỉnh thoảng còn kéo cả Quang Thanh đi theo.</p>
+    <p>Một lần, khi cả hai đang ngồi nghỉ dưới gốc cây, Quang Thanh bất ngờ hỏi: <span class="emotion">"Sao cậu thích chơi với Thiên Luân thế?"</span></p>
+    <p>Dương Khải nhìn về phía sân trường — nơi Thiên Luân đang cười đùa cùng mọi người.</p>
+    <p><span class="emotion">"Mình không biết. Mình chỉ biết là mỗi lần nhìn thấy cậu ấy, mình lại muốn chơi cùng thôi."</span></p>
+    <p>Quang Thanh chẳng nghĩ nhiều. Cậu chỉ nhún vai rồi chuyển sang chủ đề khác.</p>
+
+    <div class="scene-break">· · ·</div>
+
+    <p>Ngày chụp ảnh kỷ yếu cuối cấp tiểu học, sân trường đông nghịt người. Vừa chụp ảnh xong, Dương Khải đã chạy đi tìm. Cuối cùng cậu cũng tìm thấy lớp của Thiên Luân đang chụp ảnh ở phía sân bên kia.</p>
+    <p>Cậu đứng chờ. Đợi cho tới khi Thiên Luân bước ra.</p>
+    <p class="short"><span class="emotion">"Wow. Cậu mặc đẹp quá."</span></p>
+    <p class="short">Thiên Luân quay lại nhìn cậu rồi cười. <span class="emotion">"Cảm ơn. Cậu cũng vậy."</span></p>
+    <p>Dương Khải cảm thấy vui đến lạ.</p>
+    <p>Nhưng đúng lúc ấy, một cô bé từ xa chạy tới. <span class="emotion">"Anh Thiên Luân!"</span> Cô bé ôm chầm lấy Thiên Luân. Dương Khải đứng sững.</p>
+    <p>Thiên Luân bật cười rồi xoa đầu cô bé. <span class="emotion">"Ôi Bông. Lâu lắm rồi không gặp. Đi chơi với anh nhé."</span></p>
+    <p>Nói xong, cậu nắm tay cô bé rồi rời đi. Thiên Luân không hề nhận ra Dương Khải vẫn còn đứng đó. Cũng không nhìn thấy ánh mắt đang dõi theo mình.</p>
+    <p><span class="emotion">Buồn. Khó chịu. Và mất mát.</span></p>
+    <p>Cậu không hiểu vì sao. Chỉ biết rằng khi nhìn hai người rời đi cùng nhau, cậu cảm thấy như vừa đánh mất thứ gì đó rất quan trọng.</p>
+    <p>Cuối cùng, Dương Khải quay người bỏ chạy. Được vài bước, cậu vẫn ngoái đầu nhìn lại. Nhưng Thiên Luân đã đi xa.</p>
+
+    <div class="scene-break">· · ·</div>
+
+    <p>Mùa hè năm ấy, Dương Khải vẫn thường nghĩ về Thiên Luân. Về cô bé tên Bông. Về những điều mà cậu chưa kịp hỏi.</p>
+    <p>Cậu tự nhủ rằng năm học mới bắt đầu, nhất định sẽ tìm Thiên Luân để hỏi cho rõ.</p>
+    <p>Nhưng cuộc đời không cho cậu cơ hội đó. Kết thúc mùa hè, gia đình Dương Khải chuyển về Ninh Bắc.</p>
+    <p>Khi biết tin, Dương Khải đã khóc rất nhiều. Cậu không muốn rời đi. Không muốn xa ngôi trường ấy. Không muốn xa những kỷ niệm ấy. Và càng không muốn xa Thiên Luân.</p>
+    <p>Nhưng cuối cùng, cậu vẫn phải lên đường.</p>
+    <p>Mang theo những ký ức tuổi thơ. Mang theo những rung động đầu đời. Và mang theo một câu hỏi mà mãi mãi cậu không có cơ hội tìm được câu trả lời.</p>
+    <p><span class="emotion">Đó cũng là lần cuối cùng Dương Khải nhìn thấy Thiên Luân.</span></p>
+  </div>
+
+  <div class="story-footer">
+    ✿<br>
+    <em>Còn tiếp...</em><br><br>
+    Sinh nhật vui vẻ, Nguyễn Tất Hải 🎂<br><br>
+    <button class="btn-back" onclick="backCover()">← Trang bìa</button>
+  </div>
+</div>
+
+<script>
+  function checkPassword() {
+    const input = document.getElementById('pw-input');
+    const error = document.getElementById('pw-error');
+    if (input.value === '23062006') {
+      document.getElementById('password-screen').style.display = 'none';
+      document.getElementById('cover').style.display = 'flex';
+      window.scrollTo(0, 0);
+    } else {
+      input.classList.add('error');
+      error.textContent = 'Sai mật khẩu rồi, thử lại nhé 🌸';
+      setTimeout(() => input.classList.remove('error'), 400);
+      input.value = '';
+      input.focus();
+    }
+  }
+  function openStory() {
+    document.getElementById('cover').style.display = 'none';
+    document.getElementById('story').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+  function backCover() {
+    document.getElementById('story').style.display = 'none';
+    document.getElementById('cover').style.display = 'flex';
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>
